@@ -7,11 +7,12 @@ from bankruptcy_estates import BankruptcyEstate
 from get_response import ResponseRetrieval
 from datetime import datetime
 
-excel_file_name = "test.xlsx"
+excel_file_name = "run2.xlsx"
 path_to_excel_file = f"{os.getcwd()}\{excel_file_name}" 
 
 to_date = datetime.today().strftime("%Y-%m-%d")
-from_date = "2022-01-01"
+# to_date = "2022-03-01"
+from_date = "2022-03-01"
 page_number = 0
 
 response = ResponseRetrieval(from_date=from_date, to_date=to_date, page_number=page_number)
@@ -43,6 +44,6 @@ while status_code == 200 and response_in_json["resultCount"] != 0:
 df = pd.DataFrame.from_dict(retrieved_data)
 
 with pd.ExcelWriter(excel_file_name, mode="w") as writer:
-    df.to_excel(writer,sheet_name='Sheet1')
+    df.to_excel(writer,sheet_name='Sheet1', index=False)
 
 
